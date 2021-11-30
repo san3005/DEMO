@@ -1,0 +1,46 @@
+{
+  "universities": [
+    {
+      "id": 1,
+      "country": "India",
+      "state-province": "UK",
+      "name": "DIT"
+    },
+    {
+      "name": "test",
+      "country": "India",
+      "state-province": "Delhi",
+      "id": 2
+    },
+    {
+      "name": "test2",
+      "country": "India",
+      "state-province": "Delhi",
+      "id": 3
+    },
+    {
+      "name": "test",
+      "country": "dsgsd",
+      "state-province": "test",
+      "id": 4
+    },
+    {
+      "name": "test",
+      "country": "test",
+      "state-province": "test",
+      "id": 5
+    },
+    {
+      "name": "test",
+      "country": "tes",
+      "state-province": "test",
+      "id": 6
+    },
+    {
+      "name": "test",
+      "country": "test",
+      "state-province": "test",
+      "id": 7
+    }
+  ]
+}
