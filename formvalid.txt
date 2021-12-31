@@ -1,0 +1,266 @@
+import React from 'react'
+import{Formik,Form,Field,FieldArray} from 'formik';
+import TextField from './TextField';
+import CheckboxGroup from './CheckboxGroup'
+import Select from './Select'
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import {ErrorMessage,useField} from 'formik'
+import { FormHelperText } from "@material-ui/core";
+
+
+import  { useState } from 'react'
+
+import * as Yup from 'yup'
+
+function FormValid () {
+const [se, setSe] = useState(false)
+const [st, setSt] = useState(false)
+const [alert, setAlert] = useState(false)
+
+const handleclick=()=>{
+    setSe(true);
+    setSt(false);
+ 
+}
+const handlealertclick=()=>{
+    setAlert(true);
+}
+const handlealertchange=()=>{
+    setAlert(false);
+}
+const handleclick2=()=>{
+    setSe(false);
+    setSt(true);
+ 
+}
+const handlealert=()=>{
+   setAlert(false);
+   setSt(false);
+   setSe(false);
+ 
+}
+const handleChange=()=>{
+    setSt(false);
+    
+}  
+
+const dropdownoptions  =[
+    {key:'optiona',value:'coptiona'},
+    {key:'optionb',value:'coptionb'},
+    {key:'optionc',value:'coptionc'},
+    {key:'optiond',value:'coptiond'},]
+    const dropdownoptions1  =[
+        {key:'k2',value:'k2'},
+        {key:'k3',value:'k3'},
+        {key:'k4',value:'k4'},
+        {key:'k5',value:'k5'},]
+    
+ const checkboxoptions  =[
+        {key:'option1',value:'coption1'},
+        {key:'option2',value:'coption2'},
+        {key:'option3',value:'coption3'},
+        {key:'option4',value:'coption4'},
+        {key:'option5',value:'coption5'},
+        {key:'option6',value:'coption6'},
+        {key:'option7',value:'coption7',className:'px-4'},
+        {key:'option8',value:'coption8' },
+        {key:'option9',value:'coption9' },
+        {key:'option10',value:'coption10' },
+        {key:'option11',value:'coption11' },]
+    const MyTextArea = ({label, ...props}) => {
+        // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
+        // which we can spread on <input> and alse replace ErrorMessage entirely.
+        const [field, meta] = useField(props);
+        return (
+            <>
+                <label htmlFor={props.id || props.name}>{label}</label>
+                <textarea             className={`form-control shadow-none 
+                 ${meta.touched && meta.error && 'is-invalid'}`}
+ {...field} {...props} />
+                {meta.touched && meta.error ? (
+                    <div className="error">{meta.error}</div>
+                ) : null}
+            </>
+        );
+      };
+    
+      
+   const validate =Yup.object({
+    groups: Yup.array().min(4, 'Select atleast one option of your interest'),  
+    terms:Yup.boolean().oneOf([true], "Must agree to something"),    
+        
+      Associatename:Yup.string()
+      .matches(/^[a-zA-Z   ]*$/,"Accepts alphabets spaces min 5 and max 30 char")
+       .max(30,"Accepts alphabets spaces min 5 and max 30 char")
+       .min(5,"Accepts alphabets spaces min 5 and max 30 char")
+       .required('Please enter Associate Name'),
+       
+       Associateid: Yup.string()
+       .matches(/^[0-9]+$/,"Invalid Associate id")
+       .max(12,"Invalid Associate id")
+       .min(6,"Invalid Associate id")
+       .required('Please enter Associate id') ,
+       
+propic:Yup.mixed()
+.required("upload file plaease"),
+       Projectid:Yup.string()
+       .matches(/^[a-zA-Z0-9]*$/,"on;y alplah numneric")
+       .max(12,"Accepts alphabets spaces min 6 and max 12 char")
+    .min(6,"Accepts alphabets spaces min 6 and max 12 char")
+       .required('Please enter project id'),
+       comments:Yup.string()
+       .required('Please enter comments '),
+       skills:Yup.array()
+.min(5,"select min5"),
+
+
+talent:Yup.string()
+.required("required"),
+
+talent1:Yup.string()
+.required("required"),
+te:Yup.string()
+.required("enter buttons"),
+shore:Yup.boolean()
+.required("rtydtd"),
+radioGroup: Yup.string().required("A radio option is required")
+.min(1,"atleast1"),
+});
+    return (
+       <Formik
+       initialValues={{
+           Associatename:'',
+           Associateid:'',
+           Projectid:'',
+           shore:false,
+           propic:'',
+           comments:'',
+           loc:[],
+           te:'',
+           talent:'',
+           talent1:'',
+           skills:[],
+           radiogroup:'',
+           Offshore:'',
+           Onshore:'',
+           gender:"",
+       }}
+       
+       validationSchema={validate}
+       onSubmit={(values) =>{
+           console.log(values);
+   }}>
+
+           {formik=>(
+<div>
+    <h1 className="my-4 font-weight-bold"><span style={{color:"red"}}>*</span>FORM VALIDATION</h1>
+    <Form>
+        {alert && <div class="alert alert-primary" role="alert">
+  This is a primary alert—check it out! <button type="button" class=" btn btn-outline-light" onClick={handlealert}>ok</button>
+
+</div>}
+        <TextField label="Associate Name" name="Associatename" type="text"/>        
+        <TextField label="Associate ID " name="Associateid" type="text"/>
+        <TextField label="Projectid " name="Projectid" type="text"/>
+    <div className="col">
+        <label>
+
+        <Field
+                  as={RadioGroup}
+                  aria-label="gender"
+                  name="gender"
+                  style={{ display: "initial" }}
+               >
+                   <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                    onClick={handleclick2}
+
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                    onClick={handleclick} 
+
+                  />
+</Field>
+              <FormHelperText style={{color:"red"}}>
+                <ErrorMessage  name="gender" />
+              </FormHelperText>
+            <Field
+          type="radio"
+          name="shore"
+          value="Offshore"
+          className=" radio"
+
+    onClick={handleclick} 
+     />Off-Shore
+     
+           </label>
+      <label>
+        <Field
+          type="radio"
+          name="shore"
+          value="Onshore" 
+          onClick={handleclick2}
+          className="radio"
+        />On-Shore
+        </label>
+
+      </div>
+          
+        {se &&  <Select
+              control='select'
+              name='talent'
+         options={dropdownoptions}
+         className="select"
+
+            />}
+           {st &&  <Select
+              control='select'
+              name='talent1'
+         options={dropdownoptions1}
+         className="select"
+            />}
+        
+           <label className='mt-3 '>
+           <CheckboxGroup
+              control='checkbox'
+              label='Your skillset'
+              name='skills'
+style={{padding:"100px 100px"}}     
+         options={checkboxoptions}
+            />
+              
+             </label>
+             <div className="form-group">
+                  <label htmlFor="file">File upload</label>
+                  <TextField id="file" name="propic" type="file" className="form-control" />
+                </div>
+       
+      
+                <MyTextArea
+        className="mt-2"
+            label="comments"
+            name="comments"
+            rows="6"
+            cols="60"
+          />
+        <div className="row"><div className="col-md-3">        <button className="btn btn-primary mt-3 mr-6"   type="submit">Submit</button></div>
+
+<div className="col-md-3">   <button className="btn btn-danger mt-3 mr-4" type="reset" onClick={handlealert}>Reset</button> </div>
+</div>
+
+    </Form>
+</div>           )}
+       </Formik>
+    )
+}
+export default FormValid;
+// disabled={!(formik.dirty && formik.isValid)}
